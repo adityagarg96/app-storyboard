@@ -1,0 +1,66 @@
+[
+ {
+  "id": "app.orders",
+  "file": "schema/orders.ts",
+  "columns": [
+   {
+    "name": "id"
+   },
+   {
+    "name": "customer_id"
+   },
+   {
+    "name": "store_id"
+   },
+   {
+    "name": "status"
+   },
+   {
+    "name": "total"
+   }
+  ]
+ },
+ {
+  "id": "app.customers",
+  "file": "schema/customers.ts",
+  "columns": [
+   {
+    "name": "id"
+   },
+   {
+    "name": "name"
+   },
+   {
+    "name": "shipping_zone",
+    "status": "proposed",
+    "type": "new column"
+   }
+  ]
+ },
+ {
+  "id": "app.roles",
+  "file": "schema/roles.ts",
+  "columns": [
+   {
+    "name": "id"
+   },
+   {
+    "name": "can_see_revenue"
+   }
+  ]
+ },
+ {
+  "id": "app.shipping_rates",
+  "status": "proposed",
+  "columns": [
+   {
+    "name": "zone",
+    "status": "proposed"
+   },
+   {
+    "name": "rate",
+    "status": "proposed"
+   }
+  ]
+ }
+]

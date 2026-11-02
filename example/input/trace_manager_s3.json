@@ -1,0 +1,29 @@
+{
+ "step": "s3",
+ "stages": [
+  {
+   "tag": "group by customer",
+   "row_count": 3,
+   "rows": [
+    {
+     "customer_id": 1,
+     "customer": "Ada Fake",
+     "order_count": 2,
+     "total": 65
+    },
+    {
+     "customer_id": 2,
+     "customer": "Bo Fake",
+     "order_count": 1,
+     "total": 60
+    },
+    {
+     "customer_id": 3,
+     "customer": "Cy Fake",
+     "order_count": 2,
+     "total": 35
+    }
+   ]
+  }
+ ]
+}

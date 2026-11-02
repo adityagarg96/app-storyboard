@@ -1,0 +1,22 @@
+{
+ "step": "c2",
+ "vars": {
+  "rowsOut": [
+   {
+    "name": "Ada Fake",
+    "total": "$65",
+    "estimate": "$8"
+   },
+   {
+    "name": "Bo Fake",
+    "total": "$60",
+    "estimate": "$7"
+   },
+   {
+    "name": "Cy Fake",
+    "total": "$35",
+    "estimate": "$8"
+   }
+  ]
+ }
+}

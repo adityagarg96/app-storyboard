@@ -1,0 +1,439 @@
+{
+ "provenance": "Invented example app. Values computed from invented rows.",
+ "roles": [
+  {
+   "key": "manager",
+   "label": "manager"
+  },
+  {
+   "key": "clerk",
+   "label": "clerk"
+  }
+ ],
+ "endpoint": {
+  "method": "GET",
+  "path": "/api/stores/:id/summary",
+  "handler": "src/orders/summary.js:12"
+ },
+ "steps": [
+  {
+   "n": 1,
+   "id": "s1",
+   "op": "call",
+   "text": "Check whether this role may see revenue",
+   "side": "server",
+   "at": "src/orders/summary.js:14",
+   "reads": [
+    "app.roles.can_see_revenue"
+   ],
+   "flag": null
+  },
+  {
+   "n": 2,
+   "id": "s2",
+   "op": "query",
+   "text": "Load this store\u2019s paid orders",
+   "side": "server",
+   "at": "src/orders/summary.js:18",
+   "reads": [
+    "app.orders.id",
+    "app.orders.customer_id",
+    "app.orders.store_id",
+    "app.orders.status",
+    "app.orders.total",
+    "app.customers.id",
+    "app.customers.name"
+   ],
+   "flag": "Orders with no customer are dropped silently by the inner join."
+  },
+  {
+   "n": 3,
+   "id": "s3",
+   "op": "group",
+   "text": "Total and count per customer",
+   "side": "server",
+   "at": "src/orders/summary.js:31",
+   "reads": [],
+   "flag": null
+  },
+  {
+   "n": 4,
+   "id": "s4",
+   "op": "query",
+   "text": "Look up each customer\u2019s shipping zone",
+   "side": "server",
+   "at": "(to build)",
+   "reads": [
+    "app.customers.shipping_zone"
+   ],
+   "status": "proposed",
+   "flag": null
+  },
+  {
+   "n": 5,
+   "id": "s5",
+   "op": "map",
+   "text": "Attach a shipping estimate per customer",
+   "side": "server",
+   "at": "(to build)",
+   "reads": [],
+   "status": "proposed",
+   "flag": null
+  },
+  {
+   "n": 6,
+   "id": "s6",
+   "op": "format",
+   "text": "Send revenue, count and customers",
+   "side": "server",
+   "at": "src/orders/summary.js:40",
+   "reads": [],
+   "flag": null
+  },
+  {
+   "n": 7,
+   "id": "c1",
+   "op": "format",
+   "text": "Show revenue in the header",
+   "side": "browser",
+   "at": "web/Summary.tsx:22",
+   "reads": [],
+   "flag": null
+  },
+  {
+   "n": 8,
+   "id": "c2",
+   "op": "map",
+   "text": "Render one row per customer",
+   "side": "browser",
+   "at": "web/Summary.tsx:30",
+   "reads": [],
+   "flag": null
+  }
+ ],
+ "work": [
+  {
+   "name": "canSeeRevenue",
+   "step": 1,
+   "kind": "boolean",
+   "type": "boolean"
+  },
+  {
+   "name": "orders",
+   "step": 2,
+   "kind": "list",
+   "type": "{record_id, customer, status, total}[]"
+  },
+  {
+   "name": "totals",
+   "step": 3,
+   "kind": "list",
+   "type": "{customer_id, customer, order_count, total}[]"
+  },
+  {
+   "name": "zones",
+   "step": 4,
+   "kind": "list",
+   "type": "{customer_id, shipping_zone}[]"
+  },
+  {
+   "name": "customersOut",
+   "step": 5,
+   "kind": "list",
+   "type": "{\u2026totals, estimate}[]"
+  },
+  {
+   "name": "response",
+   "step": 6,
+   "kind": "object",
+   "type": "{revenueTotal, orderCount, customers}"
+  },
+  {
+   "name": "heroTotal",
+   "step": 7,
+   "kind": "string",
+   "type": "string"
+  },
+  {
+   "name": "rowsOut",
+   "step": 8,
+   "kind": "list",
+   "type": "{name, total, estimate}[]"
+  }
+ ],
+ "payload": [
+  {
+   "group": "Response",
+   "field": "revenueTotal",
+   "final": {
+    "manager": 160,
+    "clerk": null
+   },
+   "via": [
+    {
+     "var": "orders",
+     "step": 2,
+     "why": "Paid orders in this store",
+     "at": "src/orders/summary.js:18",
+     "focusCols": [
+      "total"
+     ]
+    },
+    {
+     "var": "totals",
+     "step": 3,
+     "why": "Summed per customer",
+     "at": "src/orders/summary.js:31",
+     "focusCols": [
+      "total"
+     ]
+    },
+    {
+     "var": "canSeeRevenue",
+     "step": 1,
+     "why": "Hidden unless the role may see it",
+     "at": "src/orders/summary.js:14"
+    },
+    {
+     "var": "response",
+     "step": 6,
+     "why": "Sum of all customer totals",
+     "at": "src/orders/summary.js:41"
+    }
+   ]
+  },
+  {
+   "group": "Response",
+   "field": "orderCount",
+   "final": {
+    "manager": 5,
+    "clerk": 5
+   },
+   "via": [
+    {
+     "var": "orders",
+     "step": 2,
+     "why": "Paid orders in this store",
+     "at": "src/orders/summary.js:18"
+    },
+    {
+     "var": "response",
+     "step": 6,
+     "why": "Length of the list",
+     "at": "src/orders/summary.js:42"
+    }
+   ]
+  },
+  {
+   "group": "Customer row (Ada Fake)",
+   "token": "Ada",
+   "field": "customers[].total",
+   "final": {
+    "manager": 65,
+    "clerk": 65
+   },
+   "via": [
+    {
+     "var": "orders",
+     "step": 2,
+     "why": "Ada\u2019s paid orders",
+     "at": "src/orders/summary.js:18",
+     "focusCols": [
+      "total"
+     ]
+    },
+    {
+     "var": "totals",
+     "step": 3,
+     "why": "Summed",
+     "at": "src/orders/summary.js:31",
+     "focusCols": [
+      "total"
+     ]
+    },
+    {
+     "var": "customersOut",
+     "step": 5,
+     "why": "Carried through",
+     "at": "(to build)"
+    },
+    {
+     "var": "response",
+     "step": 6,
+     "why": "Sent",
+     "at": "src/orders/summary.js:43"
+    }
+   ]
+  },
+  {
+   "group": "Customer row (Ada Fake)",
+   "token": "Ada",
+   "field": "customers[].estimate",
+   "status": "proposed",
+   "final": {
+    "manager": 8,
+    "clerk": 8
+   },
+   "via": [
+    {
+     "var": "totals",
+     "step": 3,
+     "why": "How many orders",
+     "at": "src/orders/summary.js:31",
+     "focusCols": [
+      "order_count"
+     ]
+    },
+    {
+     "var": "zones",
+     "step": 4,
+     "why": "Needs a column that doesn\u2019t exist yet",
+     "at": "(to build)",
+     "focusCols": [
+      "shipping_zone"
+     ]
+    },
+    {
+     "var": "customersOut",
+     "step": 5,
+     "why": "Zone rate \u00d7 order count",
+     "at": "(to build)",
+     "focusCols": [
+      "estimate"
+     ]
+    },
+    {
+     "var": "response",
+     "step": 6,
+     "why": "Sent",
+     "at": "src/orders/summary.js:43"
+    }
+   ]
+  },
+  {
+   "group": "Browser",
+   "field": "header revenue",
+   "final": {
+    "manager": "$160",
+    "clerk": "\u2014"
+   },
+   "via": [
+    {
+     "var": "response",
+     "step": 6,
+     "why": "revenueTotal",
+     "at": "src/orders/summary.js:41"
+    },
+    {
+     "var": "heroTotal",
+     "step": 7,
+     "why": "Formatted; a dash when hidden",
+     "at": "web/Summary.tsx:22"
+    }
+   ]
+  }
+ ],
+ "queries": [
+  {
+   "steps": [
+    2
+   ],
+   "stages": [
+    {
+     "tag": "from",
+     "plain": "Start with every order.",
+     "use": [
+      "app.orders.id",
+      "app.orders.customer_id",
+      "app.orders.store_id",
+      "app.orders.status",
+      "app.orders.total"
+     ],
+     "rows": {
+      "manager": 8,
+      "clerk": 8
+     },
+     "why": null
+    },
+    {
+     "tag": "join",
+     "plain": "Attach the customer\u2019s name.",
+     "use": [
+      "app.orders.customer_id",
+      "app.customers.id",
+      "app.customers.name"
+     ],
+     "rows": {
+      "manager": 7,
+      "clerk": 7
+     },
+     "why": "Order 107 has no customer, so it silently disappears."
+    },
+    {
+     "tag": "where",
+     "plain": "Keep this store only.",
+     "use": [
+      "app.orders.store_id"
+     ],
+     "rows": {
+      "manager": 6,
+      "clerk": 6
+     },
+     "why": "Order 108 belongs to another store."
+    },
+    {
+     "tag": "where",
+     "plain": "Keep paid orders only.",
+     "use": [
+      "app.orders.status"
+     ],
+     "rows": {
+      "manager": 5,
+      "clerk": 5
+     },
+     "why": "Order 105 was refunded."
+    }
+   ]
+  },
+  {
+   "steps": [
+    3
+   ],
+   "stages": [
+    {
+     "tag": "group",
+     "plain": "Collapse to one row per customer and add up.",
+     "use": [],
+     "rows": {
+      "manager": 3,
+      "clerk": 3
+     },
+     "why": null
+    }
+   ]
+  },
+  {
+   "steps": [
+    4
+   ],
+   "stages": [
+    {
+     "tag": "from",
+     "plain": "Read each customer\u2019s zone (column to be added).",
+     "use": [
+      "app.customers.shipping_zone"
+     ],
+     "rows": {
+      "manager": 3,
+      "clerk": 3
+     },
+     "why": null
+    }
+   ]
+  }
+ ],
+ "unresolved": [
+  "Who sets shipping_zone for existing customers? The mock doesn\u2019t say.",
+  "Are the zone rates in the data model or in config?"
+ ]
+}

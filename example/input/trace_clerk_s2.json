@@ -1,0 +1,229 @@
+{
+ "step": "s2",
+ "stages": [
+  {
+   "tag": "from orders",
+   "row_count": 8,
+   "rows": [
+    {
+     "record_id": "101",
+     "customer_id": 1,
+     "store_id": 1,
+     "status": "paid",
+     "total": 40
+    },
+    {
+     "record_id": "102",
+     "customer_id": 1,
+     "store_id": 1,
+     "status": "paid",
+     "total": 25
+    },
+    {
+     "record_id": "103",
+     "customer_id": 2,
+     "store_id": 1,
+     "status": "paid",
+     "total": 60
+    },
+    {
+     "record_id": "104",
+     "customer_id": 3,
+     "store_id": 1,
+     "status": "paid",
+     "total": 15
+    },
+    {
+     "record_id": "105",
+     "customer_id": 2,
+     "store_id": 1,
+     "status": "refunded",
+     "total": 30
+    },
+    {
+     "record_id": "106",
+     "customer_id": 3,
+     "store_id": 1,
+     "status": "paid",
+     "total": 20
+    },
+    {
+     "record_id": "107",
+     "customer_id": null,
+     "store_id": 1,
+     "status": "paid",
+     "total": 55
+    },
+    {
+     "record_id": "108",
+     "customer_id": 1,
+     "store_id": 2,
+     "status": "paid",
+     "total": 90
+    }
+   ]
+  },
+  {
+   "tag": "join customers",
+   "row_count": 7,
+   "rows": [
+    {
+     "record_id": "101",
+     "customer_id": 1,
+     "store_id": 1,
+     "status": "paid",
+     "total": 40,
+     "customer": "Ada Fake"
+    },
+    {
+     "record_id": "102",
+     "customer_id": 1,
+     "store_id": 1,
+     "status": "paid",
+     "total": 25,
+     "customer": "Ada Fake"
+    },
+    {
+     "record_id": "103",
+     "customer_id": 2,
+     "store_id": 1,
+     "status": "paid",
+     "total": 60,
+     "customer": "Bo Fake"
+    },
+    {
+     "record_id": "104",
+     "customer_id": 3,
+     "store_id": 1,
+     "status": "paid",
+     "total": 15,
+     "customer": "Cy Fake"
+    },
+    {
+     "record_id": "105",
+     "customer_id": 2,
+     "store_id": 1,
+     "status": "refunded",
+     "total": 30,
+     "customer": "Bo Fake"
+    },
+    {
+     "record_id": "106",
+     "customer_id": 3,
+     "store_id": 1,
+     "status": "paid",
+     "total": 20,
+     "customer": "Cy Fake"
+    },
+    {
+     "record_id": "108",
+     "customer_id": 1,
+     "store_id": 2,
+     "status": "paid",
+     "total": 90,
+     "customer": "Ada Fake"
+    }
+   ]
+  },
+  {
+   "tag": "where store",
+   "row_count": 6,
+   "rows": [
+    {
+     "record_id": "101",
+     "customer_id": 1,
+     "store_id": 1,
+     "status": "paid",
+     "total": 40,
+     "customer": "Ada Fake"
+    },
+    {
+     "record_id": "102",
+     "customer_id": 1,
+     "store_id": 1,
+     "status": "paid",
+     "total": 25,
+     "customer": "Ada Fake"
+    },
+    {
+     "record_id": "103",
+     "customer_id": 2,
+     "store_id": 1,
+     "status": "paid",
+     "total": 60,
+     "customer": "Bo Fake"
+    },
+    {
+     "record_id": "104",
+     "customer_id": 3,
+     "store_id": 1,
+     "status": "paid",
+     "total": 15,
+     "customer": "Cy Fake"
+    },
+    {
+     "record_id": "105",
+     "customer_id": 2,
+     "store_id": 1,
+     "status": "refunded",
+     "total": 30,
+     "customer": "Bo Fake"
+    },
+    {
+     "record_id": "106",
+     "customer_id": 3,
+     "store_id": 1,
+     "status": "paid",
+     "total": 20,
+     "customer": "Cy Fake"
+    }
+   ]
+  },
+  {
+   "tag": "where paid",
+   "row_count": 5,
+   "rows": [
+    {
+     "record_id": "101",
+     "customer_id": 1,
+     "store_id": 1,
+     "status": "paid",
+     "total": 40,
+     "customer": "Ada Fake"
+    },
+    {
+     "record_id": "102",
+     "customer_id": 1,
+     "store_id": 1,
+     "status": "paid",
+     "total": 25,
+     "customer": "Ada Fake"
+    },
+    {
+     "record_id": "103",
+     "customer_id": 2,
+     "store_id": 1,
+     "status": "paid",
+     "total": 60,
+     "customer": "Bo Fake"
+    },
+    {
+     "record_id": "104",
+     "customer_id": 3,
+     "store_id": 1,
+     "status": "paid",
+     "total": 15,
+     "customer": "Cy Fake"
+    },
+    {
+     "record_id": "106",
+     "customer_id": 3,
+     "store_id": 1,
+     "status": "paid",
+     "total": 20,
+     "customer": "Cy Fake"
+    }
+   ]
+  }
+ ]
+}

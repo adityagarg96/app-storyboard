@@ -1,0 +1,24 @@
+{
+ "regions": [
+  {
+   "id": "hero",
+   "label": "Header: revenue and order count",
+   "implementedBy": "web/Summary.tsx:22"
+  },
+  {
+   "id": "cust",
+   "label": "Customers table",
+   "implementedBy": "web/Summary.tsx:30"
+  },
+  {
+   "id": "ship",
+   "label": "Shipping estimate panel",
+   "implementedBy": null
+  }
+ ],
+ "lit": [
+  "hero",
+  "cust",
+  "ship"
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "step": "s4",
+ "stages": [
+  {
+   "tag": "from customers",
+   "row_count": 3,
+   "rows": [
+    {
+     "customer_id": 1,
+     "shipping_zone": "A"
+    },
+    {
+     "customer_id": 2,
+     "shipping_zone": "B"
+    },
+    {
+     "customer_id": 3,
+     "shipping_zone": "A"
+    }
+   ]
+  }
+ ]
+}
